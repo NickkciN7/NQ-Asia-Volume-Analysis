@@ -140,5 +140,5 @@ Raw market data is not included in this repository due to Databento / CME Group 
 4. **Install dependencies and run** from the project root:
    ```bash
    npm install
-   npx tsc && node dist/NQAsiaVolumeAnalysis/NQAsiaVolumeAnalysis.js
+   npm start
    ```
