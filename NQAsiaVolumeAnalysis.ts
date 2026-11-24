@@ -1,6 +1,12 @@
 import fs from "node:fs";
 import readline from "node:readline";
 
+// USA's time change in fall brings confusion about what time Asia session starts for trading nq futures.
+// During summer etc it is 8 pm new york time that lines up with 9 am tokyo time. But in fall USA goes back 1 hour,
+// So now 7 pm new york time syncs with 9 am tokyo time. Some believe it should still be 8 pm because of "ICT killzones"
+// This script aims to determine what time frame actually has more volume traded on mnq.
+// We shall compare 7-8 vs 8-9. And compare 7-8:30 vs 8-9:30 (as for example many trade 1.5 hours in new york).
+
 const CSV_PATH =
   "/Users/nickd/Documents/Trading/databento/GLBX-20261124-4LBPW74B7H/glbx-mdp3-20161122-20261122.ohlcv-1m.csv";
 
@@ -68,6 +74,8 @@ async function parseCsv(filePath: string, limit?: number): Promise<OhlcvRow[]> {
 
   return rows;
 }
+
+// Note these are all eastern time
 
 function getAverageVolume7To8() {}
 
