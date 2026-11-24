@@ -102,3 +102,28 @@ Across all **7 complete winter seasons** (`N = 622` evenings, front-month proxy 
 
 - For a **1-hour** winter (EST) Asia window, **`8:00–9:00 PM ET` has reliably higher volume** than `7:00–8:00 PM ET`.
 - For a **1.5-hour** winter (EST) Asia window, **`7:00–8:30 PM ET` and `8:00–9:30 PM ET` have nearly identical total volume**, with `7:00–8:30` slightly stronger in recent full seasons because `7:00–7:30` beats `9:00–9:30`.
+
+---
+
+## How to Reproduce (Data Download & Setup)
+
+Raw market data is not included in this repository due to Databento / CME Group redistribution restrictions.
+
+1. **Download the dataset from [Databento](https://databento.com/)** using these query parameters:
+   - **Dataset**: `GLBX.MDP3` (CME Globex MDP 3.0)
+   - **Schema**: `ohlcv-1m`
+   - **Symbol**: `MNQ.FUT` (Parent symbology)
+   - **Date Range**: `2019-05-05` (MNQ launch) to present
+   - **Encoding**: `csv` (with `pretty_px`, `pretty_ts`, and `map_symbols` enabled)
+   - **Compression**: `zstd` (or none)
+2. **Decompress** (if downloaded as `.csv.zst`):
+   ```bash
+   zstd -d path/to/glbx-mdp3-*.ohlcv-1m.csv.zst
+   ```
+3. **Point the script to your CSV**:
+   Update `CSV_PATH` at the top of `NQAsiaVolumeAnalysis.ts` to the path of your uncompressed `.csv` file.
+4. **Install dependencies and run** from the project root:
+   ```bash
+   npm install
+   npx tsc && node dist/NQAsiaVolumeAnalysis/NQAsiaVolumeAnalysis.js
+   ```
